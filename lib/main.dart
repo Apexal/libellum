@@ -30,13 +30,27 @@ class Home extends StatelessWidget {
           child: Text('Add Book'),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        tooltip: 'Add new book',
-        onPressed: () {
-          Navigator.pushNamed(context, '/add_book');
-        },
-      ),
+      bottomNavigationBar:
+          BottomNavigationBar(
+            onTap: (index) {
+              if (index == 2) {
+                Navigator.pushNamed(context, '/add_book');
+              }
+            },
+          items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          title: Text('Home'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.library_books),
+          title: Text('Your Books'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.book),
+          title: Text('Add Book'),
+        ),
+      ]),
     );
   }
 }
