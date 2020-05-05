@@ -7,9 +7,7 @@ class AddBookRoute extends StatelessWidget {
       appBar: AppBar(
         title: Text('Add New Book'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(30)
-      ),
+      body: Container(padding: EdgeInsets.all(30)),
     );
   }
 }

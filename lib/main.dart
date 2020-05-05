@@ -31,18 +31,19 @@ class Home extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          tooltip: 'Add new book',
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddBookRoute()),
-            );
-          },),
+        child: Icon(Icons.add),
+        tooltip: 'Add new book',
+        onPressed: () {
+          Navigator.pushNamed(context, '/add_book');
+        },
+      ),
     );
   }
 }
 
 void main() {
-  runApp(MaterialApp(title: appTitle, home: Home()));
+  runApp(MaterialApp(title: appTitle, initialRoute: '/', routes: {
+    '/': (context) => Home(),
+    '/add_book': (context) => AddBookRoute()
+  }));
 }
