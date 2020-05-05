@@ -7,11 +7,21 @@ import 'package:libellum/screens/books_list.dart';
 
 final String appTitle = 'Libellum';
 
+class Libellum extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        theme: appTheme,
+        title: appTitle,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomeRoute(),
+          '/books': (context) => BooksListRoute(),
+          '/books/add': (context) => AddBookRoute(),
+        });
+  }
+}
+
 void main() {
-  runApp(
-      MaterialApp(theme: appTheme, title: appTitle, initialRoute: '/', routes: {
-    '/': (context) => HomeRoute(),
-    '/books': (context) => BooksListRoute(),
-    '/books/add': (context) => AddBookRoute(),
-  }));
+  runApp(Libellum());
 }
