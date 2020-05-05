@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './add_book.dart';
+import './books_list.dart';
 
 final String appTitle = 'Libellum';
 
@@ -30,27 +31,28 @@ class Home extends StatelessWidget {
           child: Text('Add Book'),
         ),
       ),
-      bottomNavigationBar:
-          BottomNavigationBar(
-            onTap: (index) {
-              if (index == 2) {
-                Navigator.pushNamed(context, '/add_book');
-              }
-            },
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            if (index == 1) {
+              Navigator.pushNamed(context, '/books');
+            } else if (index == 2) {
+              Navigator.pushNamed(context, '/books/add');
+            }
+          },
           items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text('Home'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.library_books),
-          title: Text('Your Books'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.book),
-          title: Text('Add Book'),
-        ),
-      ]),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.library_books),
+              title: Text('Your Books'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              title: Text('Add Book'),
+            ),
+          ]),
     );
   }
 }
@@ -58,6 +60,7 @@ class Home extends StatelessWidget {
 void main() {
   runApp(MaterialApp(title: appTitle, initialRoute: '/', routes: {
     '/': (context) => Home(),
-    '/add_book': (context) => AddBookRoute()
+    '/books': (context) => BooksListRoute(),
+    '/books/add': (context) => AddBookRoute(),
   }));
 }
