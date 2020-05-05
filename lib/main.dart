@@ -32,6 +32,7 @@ class Home extends StatelessWidget {
               Navigator.pushNamed(context, '/books/add');
             }
           },
+          currentIndex: 0,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
