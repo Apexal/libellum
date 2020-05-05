@@ -5,13 +5,6 @@ import './books_list.dart';
 
 final String appTitle = 'Libellum';
 
-class Book {
-  Book({this.title, this.pageCount});
-
-  final String title;
-  final int pageCount;
-}
-
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
