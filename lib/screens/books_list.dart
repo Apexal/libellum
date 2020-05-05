@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './book.dart';
+import 'package:libellum/models/book.dart';
 
 final int s = 12;
 
