@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import 'package:libellum/models/books.dart';
 
 class AddBookForm extends StatefulWidget {
   @override
@@ -11,7 +14,7 @@ class AddBookForm extends StatefulWidget {
 class _AddBookFormState extends State<AddBookForm> {
   final _formKey = GlobalKey<FormState>();
   final bookTitleController = TextEditingController();
-  final bookPageCount = TextEditingController();
+  final bookPageCountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class _AddBookFormState extends State<AddBookForm> {
               decoration: InputDecoration(
                   labelText: 'Book Title', icon: Icon(Icons.title))),
           TextFormField(
-              controller: bookPageCount,
+              controller: bookPageCountController,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter a title';
@@ -44,12 +47,8 @@ class _AddBookFormState extends State<AddBookForm> {
             onPressed: () {
               // Validate returns true if the form is valid, otherwise false.
               if (_formKey.currentState.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                // you'd often call a server or save the information in a database.
-                Navigator.pop(context, {
-                  'bookTitle': bookTitleController.text,
-                  'bookPageCount': bookPageCount.text,
-                });
+                Provider.of<BooksModel>(context, listen: false).add(Book(title: bookTitleController.text, pageCount: int.tryParse(bookPageCountController.text) ?? 0));
+                Navigator.pop(context);
               }
             },
             child: Text('Submit'),
