@@ -8,12 +8,16 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var w600 = FontWeight.w600;
     return Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Image.asset('assets/images/book_cover.jpg'),
-          Text(book.title),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Text(book.title, style: TextStyle(fontSize: 30, fontWeight: w600),),
+          ),
           ButtonBar(
             children: <Widget>[
               FlatButton(
