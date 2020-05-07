@@ -2,14 +2,14 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:libellum/models/model.dart';
+import 'package:libellum/models/db_model.dart';
 
-class Book extends Model {
+class Book extends DBModel {
   Book({this.id, this.title, this.pageCount});
 
-  int id;
-  String title;
-  int pageCount;
+  final int id;
+  final String title;
+  final int pageCount;
 
   Map<String, dynamic> toMap() {
     return {
@@ -30,16 +30,5 @@ class Book extends Model {
   @override
   String toString() {
     return 'Book{id: $id, title: $title, pageCount: $pageCount}';
-  }
-}
-
-class BooksModel extends ChangeNotifier {
-  final List<Book> _books = [];
-
-  UnmodifiableListView<Book> get books => UnmodifiableListView(_books);
-
-  void add(Book book) {
-    _books.add(book);
-    notifyListeners();
   }
 }

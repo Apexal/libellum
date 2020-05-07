@@ -1,5 +1,5 @@
 /// All models should inherit this class.
-abstract class Model {
+abstract class DBModel {
   int id;
 
   static fromMap() {}

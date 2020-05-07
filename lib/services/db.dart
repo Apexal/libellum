@@ -1,4 +1,4 @@
-import 'package:libellum/models/model.dart';
+import 'package:libellum/models/db_model.dart';
 
 import 'package:sqflite/sqflite.dart';
 
@@ -35,12 +35,12 @@ abstract class DB {
   static Future<List<Map<String, dynamic>>> query(String table) async =>
       _db.query(table);
 
-  static Future<int> insert(String table, Model model) async =>
+  static Future<int> insert(String table, DBModel model) async =>
       await _db.insert(table, model.toMap());
 
-  static Future<int> update(String table, Model model) async => await _db
+  static Future<int> update(String table, DBModel model) async => await _db
       .update(table, model.toMap(), where: 'id = ?', whereArgs: [model.id]);
 
-  static Future<int> delete(String table, Model model) async =>
+  static Future<int> delete(String table, DBModel model) async =>
       await _db.delete(table, where: 'id = ?', whereArgs: [model.id]);
 }
