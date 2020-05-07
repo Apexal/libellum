@@ -1,7 +1,3 @@
-import 'dart:collection';
-
-import 'package:flutter/foundation.dart';
-
 import 'package:libellum/models/db_model.dart';
 
 class Book extends DBModel {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:libellum/state/app_state.dart';
 
+import 'package:libellum/services/db.dart';
 import 'package:libellum/theme.dart';
 import 'package:libellum/screens/home.dart';
 import 'package:libellum/screens/add_book.dart';
@@ -25,8 +26,10 @@ class Libellum extends StatelessWidget {
 }
 
 void main() {
-  runApp(ScopedModel<AppModel>(
-    model: AppModel(),
-    child: Libellum(),
-  ));
+  DB.init().then((_) {
+    runApp(ScopedModel<AppModel>(
+      model: AppModel(),
+      child: Libellum(),
+    ));
+  });
 }
