@@ -3,8 +3,8 @@ import 'package:libellum/common/book_card.dart';
 import 'package:libellum/common/bottom_bar.dart';
 
 import 'package:libellum/main.dart';
-import 'package:libellum/models/books.dart';
-import 'package:provider/provider.dart';
+import 'package:libellum/state/app_state.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class HomeRoute extends StatelessWidget {
   @override
@@ -17,12 +17,12 @@ class HomeRoute extends StatelessWidget {
           padding: EdgeInsets.all(30),
           child: Column(
             children: <Widget>[
-              Consumer<BooksModel>(
-                builder: (context, bookList, child) {
-                  if (bookList.books.length == 0) {
+              ScopedModelDescendant<AppModel>(
+                builder: (context, child, model) {
+                  if (model.books.length == 0) {
                     return Text('No books!');
                   }
-                  return BookCard(book: bookList.books.first);
+                  return BookCard(book: model.books.first);
                 },
               )
             ],

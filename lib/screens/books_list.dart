@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:libellum/common/bottom_bar.dart';
-import 'package:libellum/models/books.dart';
-import 'package:provider/provider.dart';
-
-final int s = 12;
+import 'package:libellum/state/app_state.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class BooksListRoute extends StatelessWidget {
   @override
@@ -12,14 +10,11 @@ class BooksListRoute extends StatelessWidget {
       appBar: AppBar(
         title: Text('Your Books'),
       ),
-      body: Consumer<BooksModel>(
-        builder: (context, bookList, child) {
-          final books = bookList.books;
-
-          return ListView.builder(
-            itemCount: books.length,
-            itemBuilder: (context, index) {
-              var book = books.elementAt(index);
+      body: ScopedModelDescendant<AppModel>(
+        builder: (context, child, model) => ListView.builder(
+          itemCount: model.books.length,
+          itemBuilder: (context, index) {
+              var book = model.books.elementAt(index);
 
               return ListTile(
                 onTap: () {
@@ -28,8 +23,7 @@ class BooksListRoute extends StatelessWidget {
                 title: Text(book.title,)
               );
             },
-          );
-        },
+        ),
       ),
       bottomNavigationBar: MyBottomNavbar(currentIndex: 1),
     );

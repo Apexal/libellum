@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-
-import 'package:libellum/models/books.dart';
+import 'package:libellum/state/app_state.dart';
 
 class AddBookForm extends StatefulWidget {
   @override
@@ -47,7 +45,8 @@ class _AddBookFormState extends State<AddBookForm> {
             onPressed: () {
               // Validate returns true if the form is valid, otherwise false.
               if (_formKey.currentState.validate()) {
-                Provider.of<BooksModel>(context, listen: false).add(Book(title: bookTitleController.text, pageCount: int.tryParse(bookPageCountController.text) ?? 0));
+                var newBook = AppModel.of(context).addBook(bookTitleController.text, int.tryParse(bookPageCountController.text) ?? 0);
+                print(newBook.toString());
                 Navigator.pop(context);
               }
             },
