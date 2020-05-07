@@ -18,8 +18,14 @@ class BooksListRoute extends StatelessWidget {
 
               return ListTile(
                 onTap: () {
-                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Tapped ${book.title}')));
+                  Scaffold.of(context)
+                    ..removeCurrentSnackBar()
+                    ..showSnackBar(SnackBar(content: Text('Tapped ${book.title}')));
+                  
+                  model.removeBook(book);
                 },
+                leading: Icon(Icons.book),
+                trailing: Text(book.pageCount.toString() + ' pages', style: Theme.of(context).textTheme.subtitle,),
                 title: Text(book.title,)
               );
             },

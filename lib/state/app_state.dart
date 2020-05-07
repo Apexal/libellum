@@ -7,12 +7,13 @@ import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {
   AppModel() {
-    DB.query("books").then((maps) {
-      var books = maps.map(Book.fromMap).toList();
-      _books = books;
+    DB.init()
+      .then((_) => DB.query("books"))
+      .then((maps) {
+        _books = maps.map(Book.fromMap).toList();
 
-      notifyListeners();
-    });    
+        notifyListeners();
+      });    
   }
 
   static AppModel of(BuildContext context) => ScopedModel.of<AppModel>(context);
@@ -31,5 +32,11 @@ class AppModel extends Model {
     notifyListeners();
 
     return newBook;
+  }
+
+  void removeBook(Book book) async {
+    await DB.delete("books", book);
+    _books.remove(book);
+    notifyListeners();
   }
 }

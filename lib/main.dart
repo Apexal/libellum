@@ -26,10 +26,10 @@ class Libellum extends StatelessWidget {
 }
 
 void main() {
-  DB.init().then((_) {
-    runApp(ScopedModel<AppModel>(
-      model: AppModel(),
-      child: Libellum(),
-    ));
-  });
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  runApp(ScopedModel<AppModel>(
+    model: AppModel(),
+    child: Libellum(),
+  ));
 }
