@@ -30,6 +30,7 @@ abstract class DB {
       id integer primary key autoincrement, 
       title text not null,
       addedDate text not null,
+      updatedDate text not null,
       pageCount integer not null,
       progress integer not null
     )''');    

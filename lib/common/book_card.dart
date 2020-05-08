@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -10,12 +12,15 @@ class BookCard extends StatelessWidget {
   final Book book;
   final _dateFormat = DateFormat('yyyy-MM-dd');
 
+  final progressController = TextEditingController(); 
+
   void _showLogDialog(context, bookPageCount) {
     showDialog(
         context: context,
         child: AlertDialog(
           title: Text('What page are you up to now?'),
           content: TextField(
+            controller: progressController,
             autofocus: true,
             inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
@@ -25,7 +30,7 @@ class BookCard extends StatelessWidget {
           actions: <Widget>[
             OutlineButton(
               onPressed: () async {
-                book.progress = 100;
+                book.progress =  min(int.tryParse(progressController.text) ?? 0, book.pageCount);
                 book.updatedDate = _dateFormat.format(DateTime.now());
                 await AppModel.of(context).updateBook(book);
                 Navigator.pop(context);
@@ -38,7 +43,7 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progressDecimal = book.progress > 0 ? book.progress / book.pageCount : 0;
+    final progressDecimal = book.progress > 0 ? book.progress / book.pageCount : 0.0;
 
     return Card(
       child: Row(
