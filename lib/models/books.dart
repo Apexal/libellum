@@ -1,19 +1,25 @@
+import 'package:intl/intl.dart';
 import 'package:libellum/models/db_model.dart';
 
 class Book extends DBModel {
-  Book({this.id, this.title, this.pageCount, this.addedDate, this.progress});
-
+  Book({this.id, this.title, this.progress = 0, this.pageCount, this.addedDate, this.updatedDate}) {
+    this.addedDate = this.updatedDate = _dateFormat.format(DateTime.now());
+  }
+  
+  final _dateFormat = DateFormat('yyyy-MM-dd');
   final int id;
-  final String title;
-  final String addedDate;
-  final int pageCount;
-  final int progress;
+  String title;
+  String addedDate;
+  String updatedDate;
+  int pageCount;
+  int progress;
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
       'addedDate': addedDate,
+      'updatedDate': updatedDate,
       'pageCount': pageCount,
       'progress': progress,
     };
@@ -24,6 +30,7 @@ class Book extends DBModel {
       id: map['id'],
       title: map['title'],
       addedDate: map['addedDate'],
+      updatedDate: map['updatedDate'],
       pageCount: map['pageCount'],
       progress: map['progress']
     );

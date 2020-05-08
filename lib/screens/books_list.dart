@@ -11,27 +11,27 @@ class BooksListRoute extends StatelessWidget {
         title: Text('Your Books'),
       ),
       body: ScopedModelDescendant<AppModel>(
-        builder: (context, child, model) => ListView.builder(
-          itemCount: model.books.length,
-          itemBuilder: (context, index) {
-              var book = model.books.elementAt(index);
+          builder: (context, child, model) => GridView.count(
+                crossAxisCount: 2,
+                children: List.generate(model.books.length, (index) {
+                  final book = model.books.elementAt(index);
 
-              return ListTile(
-                onTap: () {
-                  // Scaffold.of(context)
-                  //   ..removeCurrentSnackBar()
-                  //   ..showSnackBar(SnackBar(content: Text('Tapped ${book.title}')));
-                  
-                  // model.removeBook(book);
-                  Navigator.pushNamed(context, '/books/show', arguments: book);
-                },
-                leading: Icon(Icons.book),
-                trailing: Text(book.pageCount.toString() + ' pages', style: Theme.of(context).textTheme.subtitle,),
-                title: Text(book.title,)
-              );
-            },
-        ),
-      ),
+                  return Center(
+                    child: Stack(
+                      children: <Widget>[
+                        Image.asset('assets/images/book_cover.jpg'),
+                        Text(
+                          book.title,
+                          style: TextStyle(
+                            color: Colors.white,
+                            backgroundColor: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
+              )),
       bottomNavigationBar: MyBottomNavbar(currentIndex: 1),
     );
   }

@@ -10,13 +10,11 @@ class AppModel extends Model {
   static final dateFormat = DateFormat('yyyy-MM-dd');
 
   AppModel() {
-    DB.init()
-      .then((_) => DB.query("books"))
-      .then((maps) {
-        _books = maps.map(Book.fromMap).toList();
+    DB.init().then((_) => DB.query("books")).then((maps) {
+      _books = maps.map(Book.fromMap).toList();
 
-        notifyListeners();
-      });    
+      notifyListeners();
+    });
   }
 
   static AppModel of(BuildContext context) => ScopedModel.of<AppModel>(context);
@@ -24,20 +22,27 @@ class AppModel extends Model {
   List<Book> _books = [];
 
   UnmodifiableListView<Book> get books => UnmodifiableListView<Book>(_books);
-  
+
+  /// Add a book
   Future<Book> addBook(String title, int pageCount) async {
-    final now = DateTime.now();
-    
-    var newBook = Book(id: _books.length + 1, title: title, pageCount: pageCount, progress: 0, addedDate: dateFormat.format(now));
+    var newBook =
+        Book(id: _books.length + 1, title: title, pageCount: pageCount);
     await DB.insert('books', newBook);
 
     _books.add(newBook);
-    
+
     notifyListeners();
 
     return newBook;
   }
 
+  Future<Book> updateBook(Book book) async {
+    await DB.update('books', book);
+    notifyListeners();
+    return book;
+  }
+
+  /// Remove a book
   void removeBook(Book book) async {
     await DB.delete("books", book);
     _books.remove(book);

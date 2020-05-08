@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:libellum/models/books.dart';
+import 'package:libellum/state/app_state.dart';
 
 class BookCard extends StatelessWidget {
   BookCard({this.book});
 
   final Book book;
+  final _dateFormat = DateFormat('yyyy-MM-dd');
 
   void _showLogDialog(context, bookPageCount) {
     showDialog(
@@ -21,7 +24,10 @@ class BookCard extends StatelessWidget {
           ),
           actions: <Widget>[
             OutlineButton(
-              onPressed: () {
+              onPressed: () async {
+                book.progress = 100;
+                book.updatedDate = _dateFormat.format(DateTime.now());
+                await AppModel.of(context).updateBook(book);
                 Navigator.pop(context);
               },
               child: Text('Set'),
@@ -32,6 +38,8 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final progressDecimal = book.progress > 0 ? book.progress / book.pageCount : 0;
+
     return Card(
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -60,7 +68,7 @@ class BookCard extends StatelessWidget {
                     book.title,
                     style: Theme.of(context).textTheme.title,
                   ),
-                  Text("You've read - of ${book.pageCount} pages"),
+                  Text("You've read ${book.progress} of ${book.pageCount} pages"),
                   ButtonBar(
                     children: <Widget>[
                       FlatButton.icon(
@@ -79,7 +87,7 @@ class BookCard extends StatelessWidget {
                     ],
                   ),
                   Divider(),
-                  LinearProgressIndicator(value: 0.4),
+                  LinearProgressIndicator(value: progressDecimal),
                 ],
               ),
             ),
