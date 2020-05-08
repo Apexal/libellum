@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:libellum/screens/show_book.dart';
 import 'package:libellum/state/app_state.dart';
 
 import 'package:libellum/services/db.dart';
@@ -20,6 +21,7 @@ class Libellum extends StatelessWidget {
         routes: {
           '/': (context) => HomeRoute(),
           '/books': (context) => BooksListRoute(),
+          '/books/show': (context) => ShowBookRoute(),
           '/books/add': (context) => AddBookRoute(),
         });
   }
