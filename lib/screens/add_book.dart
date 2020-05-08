@@ -52,7 +52,6 @@ class _AddBookFormState extends State<AddBookForm> {
             },
             child: Text('Submit'),
           )
-          // Add TextFormFields and RaisedButton here.
         ]));
   }
 }
