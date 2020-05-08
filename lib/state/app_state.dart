@@ -1,11 +1,14 @@
 import 'dart:collection';
 
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:libellum/models/books.dart';
 import 'package:libellum/services/db.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {
+  static final dateFormat = DateFormat('yyyy-MM-dd');
+
   AppModel() {
     DB.init()
       .then((_) => DB.query("books"))
@@ -23,8 +26,9 @@ class AppModel extends Model {
   UnmodifiableListView<Book> get books => UnmodifiableListView<Book>(_books);
   
   Future<Book> addBook(String title, int pageCount) async {
+    final now = DateTime.now();
     
-    var newBook = Book(id: _books.length + 1, title: title, pageCount: pageCount);
+    var newBook = Book(id: _books.length + 1, title: title, pageCount: pageCount, progress: 0, addedDate: dateFormat.format(now));
     await DB.insert('books', newBook);
 
     _books.add(newBook);

@@ -16,6 +16,7 @@ abstract class DB {
     // Read database
     try {
       String dbPath = await getDatabasesPath() + 'libellum';
+      // deleteDatabase(dbPath);
       _db = await openDatabase(dbPath, version: _version, onCreate: onCreate);
     } catch (err) {
       print(err);
@@ -28,9 +29,12 @@ abstract class DB {
     create table books ( 
       id integer primary key autoincrement, 
       title text not null,
-      pageCount integer not null
-    )''');
+      addedDate text not null,
+      pageCount integer not null,
+      progress integer not null
+    )''');    
   }
+
 
   static Future<List<Map<String, dynamic>>> query(String table) async =>
       _db.query(table);

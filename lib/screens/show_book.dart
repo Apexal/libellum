@@ -24,7 +24,7 @@ class ShowBookRoute extends StatelessWidget {
               Expanded(
                 child: LinearProgressIndicator(value: 0.75),
               ),
-              Text(book.pageCount.toString()),
+              Text(book.pageCount.toString())
             ]),
             ButtonBar(
               children: <Widget>[
